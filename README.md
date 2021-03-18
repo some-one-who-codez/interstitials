@@ -1,4 +1,4 @@
-# Interstitial
+# Interstitial Ads
 
 A new Flutter project showing an example use case of interstitial ads.
 
