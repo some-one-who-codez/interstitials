@@ -46,8 +46,8 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     myInterstitial = InterstitialAd(
       adUnitId: Platform.isAndroid
-          ? 'ca-app-pub-3940256099942544/1033173712'
-          : 'ca-app-pub-3940256099942544/4411468910', // test ad ids for differemt platform
+          ? 'ca-app-pub-3940256099942544/1033173712' // test ad id for android
+          : 'ca-app-pub-3940256099942544/4411468910', // test ad id for iOS
       request: AdRequest(),
       listener: AdListener(
         onAdClosed: (ad) {
@@ -61,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         onAdFailedToLoad: (ad, error) {
           ad.dispose(); // dispose of ad
-          print('Ad exited with error: $error');
+          print('Ad exited with error: $error'); // print error
         },
       ),
     );
