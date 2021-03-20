@@ -1,6 +1,9 @@
 # Interstitial Ads
 
-A new Flutter project showing an example use case of interstitial ads.
+A new Flutter project showing an example use case of interstitial ads. There is a video [tutorial](https://youtu.be/VToAN3M34a8) explaining this app.
+
+- [Youtube](https://www.youtube.com/channel/UCgzDyB6FRT2sNhh0QhB7gtQ)
+- [Instagram](https://www.instagram.com/some.one.who.codez/)
 
 ## What this app does
 This app loads the first page and when the button is clicked the interstitial is loaded. When it is closed the page is replaced by the second page and the ad disposed. The second page is just like the first and returns you back to the first page repeating the same process.
