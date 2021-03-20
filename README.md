@@ -5,6 +5,9 @@ A new Flutter project showing an example use case of interstitial ads.
 ## What this app does
 This app loads the first page and when the button is clicked the interstitial is loaded. When it is closed the page is replaced by the second page and the ad disposed. The second page is just like the first and returns you back to the first page repeating the same process.
 
+## Important!
+This app has not been set up for IOS. For this to work successfully on IOS the `info.plist` file must be changed. See the [documentation](https://pub.dev/packages/google_mobile_ads) for more info.
+
 ## Useful Links
 - [AdMob](https://apps.admob.com/signup/create-account)
 - [Set Up Your AdMob](https://youtu.be/sXYbIEjGiJM?t=34)
