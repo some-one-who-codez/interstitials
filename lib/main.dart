@@ -50,6 +50,11 @@ class _MyHomePageState extends State<MyHomePage> {
           : 'ca-app-pub-3940256099942544/4411468910', // test ad ids for differemt platform
       request: AdRequest(),
       listener: AdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            hasFailed = false;
+          });
+        },
         onAdClosed: (ad) {
           Navigator.pushReplacement(
             context,
@@ -116,6 +121,11 @@ class _SecondPageState extends State<SecondPage> {
           : 'ca-app-pub-3940256099942544/4411468910', // test ad ids for differemt platform
       request: AdRequest(),
       listener: AdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            hasFailed = false;
+          });
+        },
         onAdClosed: (ad) {
           Navigator.pushReplacement(
             context,
