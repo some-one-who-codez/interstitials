@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -40,14 +39,15 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   InterstitialAd myInterstitial;
+  bool hasFailed;
 
   @override
   void initState() {
     super.initState();
     myInterstitial = InterstitialAd(
       adUnitId: Platform.isAndroid
-          ? 'ca-app-pub-3940256099942544/1033173712' // test ad id for android
-          : 'ca-app-pub-3940256099942544/4411468910', // test ad id for iOS
+          ? 'ca-app-pub-3940256099942544/1033173712'
+          : 'ca-app-pub-3940256099942544/4411468910', // test ad ids for differemt platform
       request: AdRequest(),
       listener: AdListener(
         onAdClosed: (ad) {
@@ -60,12 +60,15 @@ class _MyHomePageState extends State<MyHomePage> {
           ad.dispose(); // dispose of ad
         },
         onAdFailedToLoad: (ad, error) {
+          setState(() {
+            hasFailed = true;
+          });
           ad.dispose(); // dispose of ad
-          print('Ad exited with error: $error'); // print error
+          print('Ad exited with error: $error');
         },
       ),
     );
-    myInterstitial.load(); // loads ad befor showing
+    myInterstitial.load(); // loads ad before showing
   }
 
   @override
@@ -78,7 +81,15 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            myInterstitial.show();
+            hasFailed
+                ? Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          SecondPage(), // Navigate to second page
+                    ),
+                  )
+                : myInterstitial.show();
           },
           child: Text('Go To Second Page'),
         ),
@@ -94,6 +105,7 @@ class SecondPage extends StatefulWidget {
 
 class _SecondPageState extends State<SecondPage> {
   InterstitialAd myInterstitial;
+  bool hasFailed;
 
   @override
   void initState() {
@@ -108,18 +120,21 @@ class _SecondPageState extends State<SecondPage> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => MyHomePage(), // Navigate to second page
+              builder: (context) => MyHomePage(), // Navigate to first page
             ),
           );
           ad.dispose(); // dispose of ad
         },
         onAdFailedToLoad: (ad, error) {
+          setState(() {
+            hasFailed = true;
+          });
           ad.dispose(); // dispose of ad
           print('Ad exited with error: $error');
         },
       ),
     );
-    myInterstitial.load(); // loads ad befor showing
+    myInterstitial.load(); // loads ad before showing
   }
 
   @override
@@ -132,7 +147,15 @@ class _SecondPageState extends State<SecondPage> {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            myInterstitial.show();
+            hasFailed
+                ? Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          MyHomePage(), // Navigate to first page
+                    ),
+                  )
+                : myInterstitial.show();
           },
           child: Text('Go To First Page'),
         ),
