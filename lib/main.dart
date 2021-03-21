@@ -56,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
           });
         },
         onAdClosed: (ad) {
-          Navigator.pushReplacement(
+          Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => SecondPage(), // Navigate to second page
@@ -87,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ElevatedButton(
           onPressed: () {
             hasFailed
-                ? Navigator.pushReplacement(
+                ? Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
@@ -153,19 +153,37 @@ class _SecondPageState extends State<SecondPage> {
       appBar: AppBar(
         title: Text('Second Page'),
         centerTitle: true,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+          ),
+          onPressed: () {
+            Navigator.pop(context); // pops page
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    MyHomePage(), // replace popped page to call init again
+              ),
+            );
+          },
+        ),
       ),
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            hasFailed
-                ? Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          MyHomePage(), // Navigate to first page
-                    ),
-                  )
-                : myInterstitial.show();
+            if (hasFailed) {
+              Navigator.pop(context); // pops page
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      MyHomePage(), // replace popped page to call init again
+                ),
+              );
+            } else {
+              myInterstitial.show();
+            }
           },
           child: Text('Go To First Page'),
         ),
