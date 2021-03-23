@@ -149,30 +149,27 @@ class _SecondPageState extends State<SecondPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Second Page'),
-        centerTitle: true,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
+    return WillPopScope(
+      // ignore: missing_return
+      onWillPop: () {
+        Navigator.pop(context); // pops page
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                MyHomePage(), // replace popped page to call init again
           ),
-          onPressed: () {
-            Navigator.pop(context); // pops page
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    MyHomePage(), // replace popped page to call init again
-              ),
-            );
-          },
-        ),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            if (hasFailed) {
+        );
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Second Page'),
+          centerTitle: true,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+            ),
+            onPressed: () {
               Navigator.pop(context); // pops page
               Navigator.pushReplacement(
                 context,
@@ -181,11 +178,27 @@ class _SecondPageState extends State<SecondPage> {
                       MyHomePage(), // replace popped page to call init again
                 ),
               );
-            } else {
-              myInterstitial.show();
-            }
-          },
-          child: Text('Go To First Page'),
+            },
+          ),
+        ),
+        body: Center(
+          child: ElevatedButton(
+            onPressed: () {
+              if (hasFailed) {
+                Navigator.pop(context); // pops page
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        MyHomePage(), // replace popped page to call init again
+                  ),
+                );
+              } else {
+                myInterstitial.show();
+              }
+            },
+            child: Text('Go To First Page'),
+          ),
         ),
       ),
     );
